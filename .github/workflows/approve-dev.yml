@@ -1,0 +1,24 @@
+name: Approve dev formula updates
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+permissions:
+  pull-requests: write
+jobs:
+  approve:
+    if: >-
+      github.repository == 'magichourhq/homebrew-tap' &&
+      github.event.pull_request.user.login == 'magic-hour-cli-releaser[bot]' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.event.pull_request.base.ref == 'main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Approve generated dev formula
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          HEAD_BRANCH: ${{ github.event.pull_request.head.ref }}
+        run: |
+          [[ "$HEAD_BRANCH" =~ ^chore/mh-dev-[0-9]+\.[0-9]+\.[0-9]+-dev\.[0-9]+$ ]] || exit 0
+          [ "$(gh api "repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER/files" --jq '.[].filename')" = "Formula/mh-dev.rb" ] || exit 0
+          gh pr review "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --approve
