@@ -1,4 +1,4 @@
-name: Approve dev formula updates
+name: Approve release formula updates
 on:
   pull_request:
     types: [opened, synchronize, reopened]
@@ -13,12 +13,22 @@ jobs:
       github.event.pull_request.base.ref == 'main'
     runs-on: ubuntu-latest
     steps:
-      - name: Approve generated dev formula
+      - name: Approve generated formula
         env:
           GH_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
           HEAD_BRANCH: ${{ github.event.pull_request.head.ref }}
         run: |
-          [[ "$HEAD_BRANCH" =~ ^chore/mh-dev-[0-9]+\.[0-9]+\.[0-9]+-dev\.[0-9]+$ ]] || exit 0
-          [ "$(gh api "repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER/files" --jq '.[].filename')" = "Formula/mh-dev.rb" ] || exit 0
+          case "$HEAD_BRANCH" in
+            chore/mh-dev-*)
+              [[ "$HEAD_BRANCH" =~ ^chore/mh-dev-[0-9]+\.[0-9]+\.[0-9]+-dev\.[0-9]+$ ]] || exit 0
+              package=mh-dev
+              ;;
+            chore/mh-*)
+              [[ "$HEAD_BRANCH" =~ ^chore/mh-[0-9]+\.[0-9]+\.[0-9]+$ ]] || exit 0
+              package=mh
+              ;;
+            *) exit 0 ;;
+          esac
+          [ "$(gh api "repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER/files" --jq '.[].filename')" = "Formula/$package.rb" ] || exit 0
           gh pr review "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --approve
