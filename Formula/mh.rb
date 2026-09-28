@@ -1,34 +1,32 @@
 class Mh < Formula
   desc "Magic Hour command-line tool"
   homepage "https://github.com/magichourhq/magic-hour-cli"
-  version "0.0.1"
+  version "0.0.2"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/magichourhq/magic-hour-cli/releases/download/v0.0.1/mh_0.0.1_darwin_arm64.tar.gz"
-      sha256 "1550383304f8fe1e30c4e5c9dbae700f5f50c419b820c6521b47594ced08efa0"
+      url "https://github.com/magichourhq/magic-hour-cli/releases/download/v0.0.2/mh_0.0.2_darwin_arm64.tar.gz"
+      sha256 "92d93982d80f989652500ada201e0555d8d3df458f04491366d744e7f6961196"
     else
-      url "https://github.com/magichourhq/magic-hour-cli/releases/download/v0.0.1/mh_0.0.1_darwin_amd64.tar.gz"
-      sha256 "70191ef330f95b6f1f042372a6e0588abcb8c3360e5afd7415bdf2bdacbc709f"
+      url "https://github.com/magichourhq/magic-hour-cli/releases/download/v0.0.2/mh_0.0.2_darwin_amd64.tar.gz"
+      sha256 "fc00a764958295d779df44cdbece8ac143ee46e1d3bf8a8ecadd0dc1d1d9bd39"
     end
   end
 
   on_linux do
     if Hardware::CPU.arm?
-      url "https://github.com/magichourhq/magic-hour-cli/releases/download/v0.0.1/mh_0.0.1_linux_arm64.tar.gz"
-      sha256 "41ff940e1d8de4da48896e07efc2db0f3401cc888d9d2e183ac8a153ad57ffb9"
+      url "https://github.com/magichourhq/magic-hour-cli/releases/download/v0.0.2/mh_0.0.2_linux_arm64.tar.gz"
+      sha256 "ab36a01481b096a79127245230dba30f440824ad49114d8e26764a80a19acc30"
     else
-      url "https://github.com/magichourhq/magic-hour-cli/releases/download/v0.0.1/mh_0.0.1_linux_amd64.tar.gz"
-      sha256 "c721c2a4bc2305e899545935c31ddd022c48aef9cfef22df0a60c25d105e74c2"
+      url "https://github.com/magichourhq/magic-hour-cli/releases/download/v0.0.2/mh_0.0.2_linux_amd64.tar.gz"
+      sha256 "031fb4c8f3238a2207f1d94198dc3bbfe81449f2c3392d432a6433aa3c7c8996"
     end
   end
 
   def install
-    bin.install "mh"
-    bash_completion.install "completions/mh.bash" => "mh"
-    zsh_completion.install "completions/mh.zsh" => "_mh"
-    fish_completion.install "completions/mh.fish"
+    bin.install "mh" => "mh"
+    generate_completions_from_executable(bin/"mh", shell_parameter_format: :cobra)
   end
 
   test do
