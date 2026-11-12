@@ -1,26 +1,26 @@
 class Mh < Formula
   desc "Magic Hour command-line tool"
   homepage "https://github.com/magichourhq/magic-hour-cli"
-  version "0.0.6"
+  version "0.0.7"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/magichourhq/magic-hour-cli/releases/download/v0.0.6/mh_0.0.6_darwin_arm64.tar.gz"
-      sha256 "98272410056379a16533ccc1dad1b0441b9a6d311057829b6a5fe36f0e3a0cae"
+      url "https://github.com/magichourhq/magic-hour-cli/releases/download/v0.0.7/mh_0.0.7_darwin_arm64.tar.gz"
+      sha256 "253ceef4c55f9c85d2cdca57e3427bc5fe2d23ebc996c8529688cf35ea854bc0"
     else
-      url "https://github.com/magichourhq/magic-hour-cli/releases/download/v0.0.6/mh_0.0.6_darwin_amd64.tar.gz"
-      sha256 "2e785ce9ce8f34ebb4ec07ef1868479b5b77406361530a7588d2aa2791f84463"
+      url "https://github.com/magichourhq/magic-hour-cli/releases/download/v0.0.7/mh_0.0.7_darwin_amd64.tar.gz"
+      sha256 "be4e41ea33f3eb3ec64bac5fbf5bc6ed0e6191a60834ccd9ff560b195e4e0365"
     end
   end
 
   on_linux do
     if Hardware::CPU.arm?
-      url "https://github.com/magichourhq/magic-hour-cli/releases/download/v0.0.6/mh_0.0.6_linux_arm64.tar.gz"
-      sha256 "e15ed322e117e8903ececad4af2154ca6307c168737e2282024bcd8018d0aace"
+      url "https://github.com/magichourhq/magic-hour-cli/releases/download/v0.0.7/mh_0.0.7_linux_arm64.tar.gz"
+      sha256 "7b98c3dd8fe0ec56b9f16ad9669f63e171c3cf8587dd9aae556cae52321fd48b"
     else
-      url "https://github.com/magichourhq/magic-hour-cli/releases/download/v0.0.6/mh_0.0.6_linux_amd64.tar.gz"
-      sha256 "3002f82e6960bc78608e999092ddef6dd98fd5597113bdf91a16d4fb260f047d"
+      url "https://github.com/magichourhq/magic-hour-cli/releases/download/v0.0.7/mh_0.0.7_linux_amd64.tar.gz"
+      sha256 "371e48afdb91ac9ca53cfdf0630df2eb5d1646db865458ef98c5944d10eb5eb0"
     end
   end
 
